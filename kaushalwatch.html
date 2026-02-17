@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modern Watch</title>
+
+    <style>
+        body {
+            background: #e0e5ec;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .clock {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            position: relative;
+            margin: auto;
+            background: #e0e5ec;
+            box-shadow: 8px 8px 15px #a3b1c6,
+                        -8px -8px 15px #ffffff;
+        }
+
+        .hand {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0% 50%;
+        }
+
+        .hour {
+            width: 60px;
+            height: 5px;
+            background: #333;
+        }
+
+        .minute {
+            width: 85px;
+            height: 3px;
+            background: #333;
+        }
+
+        .second {
+            width: 100px;
+            height: 2px;
+            background: #ff4d4d;
+        }
+
+        .center {
+            width: 12px;
+            height: 12px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #digital {
+            margin-top: 25px;
+            font-size: 28px;
+            letter-spacing: 2px;
+            color: #333;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="clock">
+        <div class="hand hour" id="hour"></div>
+        <div class="hand minute" id="minute"></div>
+        <div class="hand second" id="second"></div>
+        <div class="center"></div>
+    </div>
+
+    <div id="digital"></div>
+
+</div>
+
+<script>
+
+function updateClock()
+{
+    var now = new Date();
+
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+
+    var hDeg = (h % 12) * 30 + m * 0.5 - 90;
+    var mDeg = m * 6 - 90;
+    var sDeg = s * 6 - 90;
+
+    document.getElementById("hour").style.transform =
+        "rotate(" + hDeg + "deg)";
+
+    document.getElementById("minute").style.transform =
+        "rotate(" + mDeg + "deg)";
+
+    document.getElementById("second").style.transform =
+        "rotate(" + sDeg + "deg)";
+
+    if(h < 10) h = "0" + h;
+    if(m < 10) m = "0" + m;
+    if(s < 10) s = "0" + s;
+
+    document.getElementById("digital").innerHTML =
+        h + " : " + m + " : " + s;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+</script>
+
+</body>
+</html>
